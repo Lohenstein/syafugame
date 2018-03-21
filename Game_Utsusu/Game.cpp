@@ -3,7 +3,7 @@
 
 namespace Game
 {
-	int mode = mode_game;
+	int mode = mode_title;
 }
 
 using	namespace Game;
@@ -13,20 +13,26 @@ using	namespace Game;
 *------------------------------------------------------------------------------*/
 void	game_init(void)
 {
-
+	Object::Init();
+	Menu::Init();
 }
 /*------------------------------------------------------------------------------*
 | <<< ÉQÅ[ÉÄÉÅÉCÉì >>>
 *------------------------------------------------------------------------------*/
 void	game_main(void)
 {
+
 	// èàóù
 	switch (mode)
 	{
 	case mode_title:
+		Menu::Updata();
+		/*if ((GetMouseInput &&MOUSE_INPUT_LEFT) != 1)
+		{
+			mode = mode_game;
+		}*/
 		break;
 	case mode_game:
-	
 		break;
 	case mode_over:
 		break;
@@ -36,9 +42,10 @@ void	game_main(void)
 	switch (mode)
 	{
 	case mode_title:
+		Menu::Draw();
 		break;
 	case mode_game:
-
+		Object::Draw();
 		break;
 	case mode_over:
 		break;
