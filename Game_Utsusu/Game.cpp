@@ -13,7 +13,7 @@ using	namespace Game;
 *------------------------------------------------------------------------------*/
 void	game_init(void)
 {
-
+	Object::init_Pianoroll();
 }
 /*------------------------------------------------------------------------------*
 | <<< ƒQ[ƒ€ƒƒCƒ“ >>>
@@ -26,7 +26,7 @@ void	game_main(void)
 	case mode_title:
 		break;
 	case mode_game:
-	
+		Input::mouse_Input();
 		break;
 	case mode_over:
 		break;
@@ -38,7 +38,7 @@ void	game_main(void)
 	case mode_title:
 		break;
 	case mode_game:
-
+		Object::draw_Pianoroll();
 		break;
 	case mode_over:
 		break;
