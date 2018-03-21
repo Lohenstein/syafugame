@@ -286,3 +286,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/Game_Utsusu.sln
+/Game_Utsusu/Game_Utsusu.vcxproj
+/Game_Utsusu/Game_Utsusu.vcxproj.filters
+/Game_Utsusu/Log.txt
