@@ -3,8 +3,8 @@
 
 namespace Game
 {
-	int mode = mode_game;
 	int roll_img;
+	int mode = mode_title;
 }
 
 using	namespace Game;
@@ -16,16 +16,24 @@ void	game_init(void)
 {
 	Object::init_Pianoroll();
 	roll_img = LoadGraph(_T("data/img/piano.png"));
+	Object::Init();
+	Menu::Init();
 }
 /*------------------------------------------------------------------------------*
 | <<< ÉQÅ[ÉÄÉÅÉCÉì >>>
 *------------------------------------------------------------------------------*/
 void	game_main(void)
 {
+
 	// èàóù
 	switch (mode)
 	{
 	case mode_title:
+		Menu::Updata();
+		/*if ((GetMouseInput &&MOUSE_INPUT_LEFT) != 1)
+		{
+			mode = mode_game;
+		}*/
 		break;
 	case mode_game:
 		Input::mouse_Input();
@@ -38,10 +46,12 @@ void	game_main(void)
 	switch (mode)
 	{
 	case mode_title:
+		Menu::Draw();
 		break;
 	case mode_game:
 		Object::draw_Gamescreen();
 		Object::draw_Pianoroll();
+		Object::Draw();
 		break;
 	case mode_over:
 		break;
