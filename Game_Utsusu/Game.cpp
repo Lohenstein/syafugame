@@ -29,14 +29,16 @@ void	game_main(void)
 	switch (mode)
 	{
 	case mode_title:
-		Menu::Updata();
-		/*if ((GetMouseInput &&MOUSE_INPUT_LEFT) != 1)
-		{
-			mode = mode_game;
-		}*/
+		Menu::Title_Updata();
 		break;
 	case mode_game:
-		Input::mouse_Input();
+		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) {
+			mode = mode_menu;
+		}
+		break;
+
+	case mode_menu:
+		Menu::Updata();
 		break;
 	case mode_over:
 		break;
@@ -46,12 +48,16 @@ void	game_main(void)
 	switch (mode)
 	{
 	case mode_title:
-		Menu::Draw();
+		Menu::Title_Draw();
 		break;
 	case mode_game:
 		Object::draw_Gamescreen();
 		Object::draw_Pianoroll();
-		//Object::Draw();
+		Object::Draw();
+
+		break;
+	case mode_menu:
+		Menu::Draw();
 		break;
 	case mode_over:
 		break;

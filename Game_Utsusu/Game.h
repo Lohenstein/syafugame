@@ -2,11 +2,13 @@
 
 namespace	Game
 {
+	extern int mode;
 	//--- ’è”éŒ¾ ---
-	enum mode {
+	extern enum mode {
 		mode_title,
 		mode_game,
 		mode_over,
+		mode_menu,
 	};
 	//--- ŠÖ”éŒ¾ ---
 
