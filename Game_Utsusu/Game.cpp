@@ -3,6 +3,7 @@
 
 namespace Game
 {
+	int roll_img;
 	int mode = mode_title;
 }
 
@@ -14,6 +15,8 @@ using	namespace Game;
 void	game_init(void)
 {
 	Object::init_Pianoroll();
+	roll_img = LoadGraph(_T("data/img/piano.png"));
+	Object::Init();
 	Menu::Init();
 }
 /*------------------------------------------------------------------------------*
@@ -48,6 +51,9 @@ void	game_main(void)
 		Menu::Title_Draw();
 		break;
 	case mode_game:
+		Object::draw_Gamescreen();
+		Object::draw_Pianoroll();
+		Object::Draw();
 
 		break;
 	case mode_menu:

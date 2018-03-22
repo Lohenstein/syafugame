@@ -11,6 +11,8 @@ namespace	Game
 		mode_menu,
 	};
 	//--- ŠÖ”éŒ¾ ---
+
+	extern int roll_img;
 }
 
 extern	void	game_init(void);
