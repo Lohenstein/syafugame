@@ -34,7 +34,7 @@ void	game_main(void)
 		}*/
 		break;
 	case mode_game:
-		Input::mouse_Input();
+	
 		break;
 	case mode_over:
 		break;
@@ -47,8 +47,7 @@ void	game_main(void)
 		Menu::Draw();
 		break;
 	case mode_game:
-		Object::draw_Pianoroll();
-		Object::Draw();
+
 		break;
 	case mode_over:
 		break;
