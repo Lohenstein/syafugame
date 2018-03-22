@@ -14,6 +14,7 @@ namespace Object
 	int		l = 0, cnt = 0;
 	int		prev = -1;
 	int		txtfont = CreateFontToHandle(_T("MS gothic"), 18, 2, DX_FONTTYPE_ANTIALIASING_EDGE_4X4);
+	wchar_t cd[256];
 
 	gui		play_sample;
 	gui		play_roll;
@@ -24,19 +25,26 @@ namespace Object
 		DrawBox(0,	 0, 1280, 720, 0x222222, true);
 		DrawBox(0, 670, 1280, 720, 0x333333, true);
 		//DrawFormatStringToHandle(0, 0, 0xFFFFFF, CreateFontToHandle(_T("MS gothic"), 18, 2, DX_FONTTYPE_ANTIALIASING_EDGE_4X4), _T("あいうえお"));
-		DrawFormatString(20, 685, 0xFFFFFF, _T("左クリック：ノートを置く　左クリック長押し：ノートを移動 %d %d"), note.type, note.time);
-		if (play_roll.draw_Button(15, 550, 100, 100, 0x333333, 0x444444, _T("再生"))) {
+		DrawFormatString(20, 685, 0xFFFFFF, _T("左クリック：ノートを置く　左クリック長押し：ノートを移動　ホイール：上下スクロール"), note.type, note.time);
+		if (play_roll.draw_Button(15, 250, 100, 100, 0x333333, 0x444444, _T("再生"))) {
 			note = { -2, 0, 0 };
 		}
-		if (play_out.draw_Button(15, 430, 100, 100, 0x333333, 0x444444, _T("仮書出"))) {
-			out_Songdata();
+		if (play_out.draw_Button(15, 400, 100, 100, 0x333333, 0x444444, _T("見本再生"))) {
 		}
+		if (play_out.draw_Button(15, 550, 100, 100, 0x333333, 0x444444, _T("採点"))) {
+			//out_Songdata();
+		}
+	}
+
+	void	load_Songdata(void) {
+		wchar_t cd[256];
+		GetCurrentDirectory(256, cd);
 	}
 
 	void	out_Songdata(void) {
 
 		ofstream ofs;  
-		ofs.open(_T("C:\\Users\\maris\\source\\repos\\syafugame\\Game_Utsusu\\data\\song.txt"), ios::out);
+		//ofs.open(_T("C:\\Users\\maris\\source\\repos\\syafugame\\Game_Utsusu\\data\\song.txt"), ios::out);
 
 		for (int i = 0; i < 64; i++) {
 			for (int j = 0; j < 88; j++) {
@@ -86,6 +94,8 @@ namespace Object
 		int mouse_w = GetMouseWheelRotVol();
 		if (mouse_w > 0) scroll -= 10;
 		if (mouse_w < 0) scroll += 10;
+
+		if (scroll < 0) scroll = 0;
 
 		DrawRectGraph(rx, ry, 0, scroll, 1024, 400, piano_handle, false, false);
 		DrawRectGraph(rx-100, ry, 0, scroll, 100, 400, Game::roll_img, false, false);

@@ -100,6 +100,7 @@ void main_loop(const std::wstring& dllFilename) {
 				vstPlugin.sendMidiNote(0, key.midiNote, on, 100);
 			}
 		}
+		// MIDIƒCƒxƒ“ƒgŠÇ—
 		if (note.type != 0) {
 			if (note.type == -1) {
 				if (note.time == -1) {
