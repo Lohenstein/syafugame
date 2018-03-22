@@ -1,9 +1,17 @@
 
 #include "Main.h"
 
+get_event note = { 0, 0, 0 };
+save_note snote[30];
+
 auto	vsthost_Init(void) {
 
 	Host::ComInit comInit{};
+
+	for (int i = 0; i < 30; i++) {
+		snote[i].s_time = -1;
+		snote[i].inter = -1;
+	}
 
 	const auto dllFilename = []() -> std::wstring {
 		wchar_t fn[MAX_PATH + 1]{};
@@ -56,9 +64,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	return 0;
 }
 
+int frame = 0;
 
-
-int get_event;
 
 // メインループ
 void main_loop(const std::wstring& dllFilename) {
@@ -93,8 +100,45 @@ void main_loop(const std::wstring& dllFilename) {
 				vstPlugin.sendMidiNote(0, key.midiNote, on, 100);
 			}
 		}
+		if (note.type != 0) {
+			if (note.type == -1) {
+				if (note.time == -1) {
+					vstPlugin.sendMidiNote(0, 7 + note.interval, true, 100);
+					note = { 0, 0, 0 };
+				}
+			}
+			if (note.type == -2) {
+				if (frame % 20 == 0) {
+					for (int i = 0; i < 30; i++) {
+						if (snote[i].s_time == note.time) {
+							vstPlugin.sendMidiNote(0, 7 + (88 - snote[i].inter), false, 100);
+							snote[i].s_time = -1;
+							snote[i].inter = -1;
+						}
+					}
+					for (int i = 0; i < 88; i++) {
+						if (Object::piano_roll[note.time][i] > 0) {
+							vstPlugin.sendMidiNote(0, 7 + (88 - i), true, 100);
+							for (int j = 0; j < 30; j++) {
+								if (snote[j].s_time == -1) {
+									snote[j].s_time = note.time + Object::piano_roll[note.time][i];
+									snote[j].inter = i;
+									break;
+								}
+							}
+						}
+					}
+					note.time++;
+					if (note.time >= 64) {
+						note = { 0, 0, 0 };
+					}
+				}
+			}
+		}
 		// ゲームメイン
 		game_main();
+		frame++;
+		if (frame > 20000000) frame = 0;
 	}
 }
 
